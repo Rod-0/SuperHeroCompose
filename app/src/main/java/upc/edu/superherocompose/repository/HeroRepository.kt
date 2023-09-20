@@ -17,7 +17,14 @@ class HeroRepository(val heroService: HeroService = ApiClient.getHeroService()) 
         searchByName.enqueue(object: Callback<HeroResponse> {
             override fun onResponse(call: Call<HeroResponse>, response: Response<HeroResponse>) {
                 if(response.isSuccessful) {
-                    callback(Result.Success(response.body()!!.results))
+                    try{
+                        callback(Result.Success(response.body()!!.results))
+                    }catch (e: Exception){
+                        callback(Result.Error(e.localizedMessage ?: "Error"))
+
+                    }
+
+
                 }
             }
 
@@ -26,5 +33,22 @@ class HeroRepository(val heroService: HeroService = ApiClient.getHeroService()) 
             }
 
         })
+    }
+
+    fun searchById(id: String,callback: (Result<Hero>) -> Unit) {
+        val searchById = heroService.searchById(heroId = id)
+        searchById.enqueue(object : Callback<Hero> {
+            override fun onResponse(call: Call<Hero>, response: Response<Hero>) {
+                if (response.isSuccessful) {
+                    callback(Result.Success(response.body()!!))
+
+                }
+            }
+
+            override fun onFailure(call: Call<Hero>, t: Throwable) {
+                callback(Result.Error(t.localizedMessage ?: "Error"))
+            }
+        })
+
     }
 }

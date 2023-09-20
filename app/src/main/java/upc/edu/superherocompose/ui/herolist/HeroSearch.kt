@@ -16,13 +16,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import upc.edu.superherocompose.data.model.Hero
 import upc.edu.superherocompose.repository.HeroRepository
 import upc.edu.superherocompose.utils.Result
 
 @Composable
-fun HeroSearch() {
+fun Search() {
 
     val textQuery = remember {
         mutableStateOf("")
@@ -33,14 +32,14 @@ fun HeroSearch() {
     }
 
     Column {
-        Search(textQuery, heroes)
+        HeroSearch(textQuery, heroes)
         HeroList(heroes)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Search(textQuery: MutableState<String>, heroes: MutableState<List<Hero>>) {
+fun HeroSearch(textQuery: MutableState<String>, heroes: MutableState<List<Hero>>) {
 
     val repository = HeroRepository()
     val context = LocalContext.current

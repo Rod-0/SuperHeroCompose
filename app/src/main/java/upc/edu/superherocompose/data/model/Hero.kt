@@ -10,7 +10,9 @@ data class Hero(
     val id: Int,
     val name: String,
     val image: HeroImage,
-    val biography:Biography
+    val biography:Biography,
+    @SerializedName("powerstats")
+    val powerStats: PowerStats
 )
 
 data class HeroImage(
@@ -21,3 +23,13 @@ data class Biography(
     @SerializedName("full-name")
     val fullName: String
 )
+
+data class PowerStats(
+    val intelligence: String,
+    val strength: String,
+    val speed: String,
+    val durability: String,
+    val power: String,
+    val combat: String
+)
+
