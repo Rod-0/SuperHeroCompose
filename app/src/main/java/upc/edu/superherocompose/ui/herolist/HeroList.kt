@@ -1,5 +1,6 @@
 package upc.edu.superherocompose.ui.herolist
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,20 +27,23 @@ import com.skydoves.landscapist.glide.GlideImage
 import upc.edu.superherocompose.data.model.Hero
 
 @Composable
-fun HeroList(heroes: MutableState<List<Hero>>) {
+fun HeroList(heroes: MutableState<List<Hero>>, selectHero:(String)->Unit) {
     LazyColumn(content = {
         items(heroes.value) {
-            HeroRow(it)
+            HeroRow(it, selectHero)
         }
     })
 
 }
 
 @Composable
-fun HeroRow(hero: Hero) {
+fun HeroRow(hero: Hero, selectHero:(String)->Unit) {
     Card(modifier = Modifier
         .fillMaxWidth()
-        .padding(8.dp)) {
+        .padding(8.dp)
+        .clickable {
+            selectHero(hero.id)
+        }) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             HeroImage(hero.image.url)
             Column(modifier = Modifier.weight(5f)) {

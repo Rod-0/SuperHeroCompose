@@ -7,7 +7,7 @@ data class HeroResponse(
 )
 
 data class Hero(
-    val id: Int,
+    val id: String,
     val name: String,
     val image: HeroImage,
     val biography:Biography,
@@ -21,7 +21,10 @@ data class HeroImage(
 
 data class Biography(
     @SerializedName("full-name")
-    val fullName: String
+    val fullName: String,
+    @SerializedName("place-of-birth")
+    val birthplace: String,
+    val publisher: String
 )
 
 data class PowerStats(

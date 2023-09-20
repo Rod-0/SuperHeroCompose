@@ -21,7 +21,7 @@ import upc.edu.superherocompose.repository.HeroRepository
 import upc.edu.superherocompose.utils.Result
 
 @Composable
-fun Search() {
+fun Search(selectHero: (String) -> Unit) {
 
     val textQuery = remember {
         mutableStateOf("")
@@ -33,7 +33,7 @@ fun Search() {
 
     Column {
         HeroSearch(textQuery, heroes)
-        HeroList(heroes)
+        HeroList(heroes, selectHero)
     }
 }
 
